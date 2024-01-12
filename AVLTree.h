@@ -1,36 +1,3 @@
-bool find_chain(vector<BinaryTree*> &parents, int target)
-    {
-        parents.push_back(this);
-        if (target == data) return true;
-        if (target < data) 
-            return left && left->find_chain(parents,target);
-        return right && right->find_chain(parents,target);
-    }
-
-    BinaryTree* get_next(vector<BinaryTree*> &p)
-    {
-        if (p.size()==0) return nullptr;
-        BinaryTree* node = p.back();
-        p.pop_back();
-        return node;
-    }
-
-pair<bool,int> successor(int target)
-    {
-        vector<BinaryTree*> parents;
-        if (!find_chain(parents,target)) return make_pair(false,-1); //if not exist
-
-        BinaryTree* child = get_next(parents); //if has right
-        if (child->right) return make_pair(true,child->right->smallest());
-
-        BinaryTree* parent = get_next(parents); //if hasn't right
-        while (parent && parent->right!=child)  //go through first larger one
-            child = parent , parent = get_next(parents);
-
-        if (parent) return make_pair(true,parent->data);
-        return make_pair(false,-1);
-    }
-
 #pragma once
 #include <iostream>
 #include <cassert>
